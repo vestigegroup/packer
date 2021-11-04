@@ -21,6 +21,7 @@ import (
 	artificepostprocessor "github.com/hashicorp/packer/post-processor/artifice"
 	checksumpostprocessor "github.com/hashicorp/packer/post-processor/checksum"
 	compresspostprocessor "github.com/hashicorp/packer/post-processor/compress"
+	hcppackerregistrypostprocessor "github.com/hashicorp/packer/post-processor/hcp-packer-registry"
 	manifestpostprocessor "github.com/hashicorp/packer/post-processor/manifest"
 	shelllocalpostprocessor "github.com/hashicorp/packer/post-processor/shell-local"
 	breakpointprovisioner "github.com/hashicorp/packer/provisioner/breakpoint"
@@ -54,11 +55,12 @@ var Provisioners = map[string]packersdk.Provisioner{
 }
 
 var PostProcessors = map[string]packersdk.PostProcessor{
-	"artifice":    new(artificepostprocessor.PostProcessor),
-	"checksum":    new(checksumpostprocessor.PostProcessor),
-	"compress":    new(compresspostprocessor.PostProcessor),
-	"manifest":    new(manifestpostprocessor.PostProcessor),
-	"shell-local": new(shelllocalpostprocessor.PostProcessor),
+	"artifice":            new(artificepostprocessor.PostProcessor),
+	"checksum":            new(checksumpostprocessor.PostProcessor),
+	"compress":            new(compresspostprocessor.PostProcessor),
+	"hcp-packer-registry": new(hcppackerregistrypostprocessor.PostProcessor),
+	"manifest":            new(manifestpostprocessor.PostProcessor),
+	"shell-local":         new(shelllocalpostprocessor.PostProcessor),
 }
 
 var Datasources = map[string]packersdk.Datasource{
