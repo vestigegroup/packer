@@ -1,4 +1,4 @@
-package packer
+package registrywrapper
 
 import (
 	"context"
@@ -13,13 +13,13 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-type RegistryPostProcessor struct {
+type PostProcessor struct {
 	BuilderType               string
 	ArtifactMetadataPublisher *packerregistry.Bucket
 	packersdk.PostProcessor
 }
 
-func (p *RegistryPostProcessor) ConfigSpec() hcldec.ObjectSpec {
+func (p *PostProcessor) ConfigSpec() hcldec.ObjectSpec {
 	if p.PostProcessor == nil {
 		return nil
 	}
@@ -27,7 +27,7 @@ func (p *RegistryPostProcessor) ConfigSpec() hcldec.ObjectSpec {
 	return p.PostProcessor.ConfigSpec()
 }
 
-func (p *RegistryPostProcessor) Configure(raws ...interface{}) error {
+func (p *PostProcessor) Configure(raws ...interface{}) error {
 	if p.PostProcessor == nil {
 		return nil
 	}
@@ -35,7 +35,7 @@ func (p *RegistryPostProcessor) Configure(raws ...interface{}) error {
 	return p.PostProcessor.Configure(raws...)
 }
 
-func (p *RegistryPostProcessor) PostProcess(ctx context.Context, ui packersdk.Ui, source packersdk.Artifact) (packersdk.Artifact, bool, bool, error) {
+func (p *PostProcessor) PostProcess(ctx context.Context, ui packersdk.Ui, source packersdk.Artifact) (packersdk.Artifact, bool, bool, error) {
 	// This is a bit of a hack for now to denote that this pp should just update the state of a build in the Packer registry.
 	// TODO create an actual post-processor that we can embed here that will do the updating and printing.
 	if p.PostProcessor == nil {
@@ -44,7 +44,7 @@ func (p *RegistryPostProcessor) PostProcess(ctx context.Context, ui packersdk.Ui
 			return nil, false, true, err
 		}
 
-		r := &RegistryArtifact{
+		r := &Artifact{
 			BuildName:   p.BuilderType,
 			BucketSlug:  p.ArtifactMetadataPublisher.Slug,
 			IterationID: p.ArtifactMetadataPublisher.Iteration.ID,

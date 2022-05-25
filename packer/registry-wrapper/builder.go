@@ -1,4 +1,4 @@
-package packer
+package registrywrapper
 
 import (
 	"context"
@@ -12,18 +12,18 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-type RegistryBuilder struct {
+type Builder struct {
 	Name                      string
 	ArtifactMetadataPublisher *packerregistry.Bucket
 	packersdk.Builder
 }
 
-func (b *RegistryBuilder) Prepare(raws ...interface{}) ([]string, []string, error) {
+func (b *Builder) Prepare(raws ...interface{}) ([]string, []string, error) {
 	return b.Builder.Prepare(raws...)
 }
 
 // Run is where the actual build should take place. It takes a Build and a Ui.
-func (b *RegistryBuilder) Run(ctx context.Context, ui packersdk.Ui, hook packersdk.Hook) (packersdk.Artifact, error) {
+func (b *Builder) Run(ctx context.Context, ui packersdk.Ui, hook packersdk.Hook) (packersdk.Artifact, error) {
 
 	if !b.ArtifactMetadataPublisher.IsExpectingBuildForComponent(b.Name) {
 		ui.Error(fmt.Sprintf("The build for %q in iteration %q has already been marked as DONE; Skipping build to prevent drift.", b.Name, b.ArtifactMetadataPublisher.Iteration.ID))

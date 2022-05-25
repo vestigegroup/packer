@@ -16,6 +16,7 @@ import (
 	. "github.com/hashicorp/packer/hcl2template/internal"
 	packerregistry "github.com/hashicorp/packer/internal/registry"
 	"github.com/hashicorp/packer/packer"
+	registrywrapper "github.com/hashicorp/packer/packer/registry-wrapper"
 	"github.com/zclconf/go-cty/cty"
 )
 
@@ -358,7 +359,7 @@ var cmpOpts = []cmp.Option{
 		null.Builder{},
 		packerregistry.Bucket{},
 		packerregistry.Iteration{},
-		packer.RegistryBuilder{},
+		registrywrapper.Builder{},
 	),
 	cmpopts.IgnoreFields(PackerConfig{},
 		"Cwd", // Cwd will change for every os type

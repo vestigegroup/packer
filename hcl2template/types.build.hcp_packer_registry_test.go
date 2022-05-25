@@ -7,6 +7,7 @@ import (
 	packersdk "github.com/hashicorp/packer-plugin-sdk/packer"
 	packer_registry "github.com/hashicorp/packer/internal/registry"
 	"github.com/hashicorp/packer/packer"
+	registrywrapper "github.com/hashicorp/packer/packer/registry-wrapper"
 	"github.com/zclconf/go-cty/cty"
 )
 
@@ -50,7 +51,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					BuildName: "bucket-slug",
 					Type:      "virtualbox-iso.ubuntu-1204",
 					Prepared:  true,
-					Builder: &packer.RegistryBuilder{
+					Builder: &registrywrapper.Builder{
 						Name:    "virtualbox-iso.ubuntu-1204",
 						Builder: emptyMockBuilder,
 						ArtifactMetadataPublisher: &packer_registry.Bucket{
@@ -67,7 +68,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					PostProcessors: [][]packer.CoreBuildPostProcessor{
 						{
 							{
-								PostProcessor: &packer.RegistryPostProcessor{
+								PostProcessor: &registrywrapper.PostProcessor{
 									BuilderType: "virtualbox-iso.ubuntu-1204",
 									ArtifactMetadataPublisher: &packer_registry.Bucket{
 										Slug:         "bucket-slug",
@@ -87,7 +88,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					BuildName: "bucket-slug",
 					Type:      "amazon-ebs.aws-ubuntu-16.04",
 					Prepared:  true,
-					Builder: &packer.RegistryBuilder{
+					Builder: &registrywrapper.Builder{
 						Name:    "amazon-ebs.aws-ubuntu-16.04",
 						Builder: emptyMockBuilder,
 						ArtifactMetadataPublisher: &packer_registry.Bucket{
@@ -104,7 +105,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					PostProcessors: [][]packer.CoreBuildPostProcessor{
 						{
 							{
-								PostProcessor: &packer.RegistryPostProcessor{
+								PostProcessor: &registrywrapper.PostProcessor{
 									BuilderType: "amazon-ebs.aws-ubuntu-16.04",
 									ArtifactMetadataPublisher: &packer_registry.Bucket{
 										Slug:         "bucket-slug",
@@ -154,7 +155,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					BuildName: "bucket-slug",
 					Type:      "virtualbox-iso.ubuntu-1204",
 					Prepared:  true,
-					Builder: &packer.RegistryBuilder{
+					Builder: &registrywrapper.Builder{
 						Name:    "virtualbox-iso.ubuntu-1204",
 						Builder: emptyMockBuilder,
 						ArtifactMetadataPublisher: &packer_registry.Bucket{
@@ -170,7 +171,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					PostProcessors: [][]packer.CoreBuildPostProcessor{
 						{
 							{
-								PostProcessor: &packer.RegistryPostProcessor{
+								PostProcessor: &registrywrapper.PostProcessor{
 									BuilderType: "virtualbox-iso.ubuntu-1204",
 									ArtifactMetadataPublisher: &packer_registry.Bucket{
 										Slug:         "real-bucket-slug",
@@ -216,7 +217,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 				&packer.CoreBuild{
 					Type:     "virtualbox-iso.ubuntu-1204",
 					Prepared: true,
-					Builder: &packer.RegistryBuilder{
+					Builder: &registrywrapper.Builder{
 						Name:    "virtualbox-iso.ubuntu-1204",
 						Builder: emptyMockBuilder,
 						ArtifactMetadataPublisher: &packer_registry.Bucket{
@@ -231,7 +232,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					PostProcessors: [][]packer.CoreBuildPostProcessor{
 						{
 							{
-								PostProcessor: &packer.RegistryPostProcessor{
+								PostProcessor: &registrywrapper.PostProcessor{
 									BuilderType: "virtualbox-iso.ubuntu-1204",
 									ArtifactMetadataPublisher: &packer_registry.Bucket{
 										Slug:        "bucket-slug",
@@ -277,7 +278,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 				&packer.CoreBuild{
 					Type:     "virtualbox-iso.ubuntu-1204",
 					Prepared: true,
-					Builder: &packer.RegistryBuilder{
+					Builder: &registrywrapper.Builder{
 						Name:    "virtualbox-iso.ubuntu-1204",
 						Builder: emptyMockBuilder,
 						ArtifactMetadataPublisher: &packer_registry.Bucket{
@@ -292,7 +293,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					PostProcessors: [][]packer.CoreBuildPostProcessor{
 						{
 							{
-								PostProcessor: &packer.RegistryPostProcessor{
+								PostProcessor: &registrywrapper.PostProcessor{
 									BuilderType: "virtualbox-iso.ubuntu-1204",
 									ArtifactMetadataPublisher: &packer_registry.Bucket{
 										Slug:        "bucket-slug",
@@ -347,7 +348,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					BuildName: "bucket-slug",
 					Type:      "virtualbox-iso.ubuntu-1204",
 					Prepared:  true,
-					Builder: &packer.RegistryBuilder{
+					Builder: &registrywrapper.Builder{
 						Name:    "virtualbox-iso.ubuntu-1204",
 						Builder: emptyMockBuilder,
 						ArtifactMetadataPublisher: &packer_registry.Bucket{
@@ -361,7 +362,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					PostProcessors: [][]packer.CoreBuildPostProcessor{
 						{
 							{
-								PostProcessor: &packer.RegistryPostProcessor{
+								PostProcessor: &registrywrapper.PostProcessor{
 									BuilderType: "virtualbox-iso.ubuntu-1204",
 									ArtifactMetadataPublisher: &packer_registry.Bucket{
 										Slug: "bucket-slug",
@@ -405,7 +406,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 				&packer.CoreBuild{
 					Type:     "virtualbox-iso.ubuntu-1204",
 					Prepared: true,
-					Builder: &packer.RegistryBuilder{
+					Builder: &registrywrapper.Builder{
 						Name:    "virtualbox-iso.ubuntu-1204",
 						Builder: emptyMockBuilder,
 						ArtifactMetadataPublisher: &packer_registry.Bucket{
@@ -420,7 +421,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					PostProcessors: [][]packer.CoreBuildPostProcessor{
 						{
 							{
-								PostProcessor: &packer.RegistryPostProcessor{
+								PostProcessor: &registrywrapper.PostProcessor{
 									BuilderType: "virtualbox-iso.ubuntu-1204",
 									ArtifactMetadataPublisher: &packer_registry.Bucket{
 										Slug:         "bucket-slug",
@@ -471,7 +472,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 				&packer.CoreBuild{
 					Type:     "virtualbox-iso.ubuntu-1204",
 					Prepared: true,
-					Builder: &packer.RegistryBuilder{
+					Builder: &registrywrapper.Builder{
 						Name:    "virtualbox-iso.ubuntu-1204",
 						Builder: emptyMockBuilder,
 						ArtifactMetadataPublisher: &packer_registry.Bucket{
@@ -485,7 +486,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					PostProcessors: [][]packer.CoreBuildPostProcessor{
 						{
 							{
-								PostProcessor: &packer.RegistryPostProcessor{
+								PostProcessor: &registrywrapper.PostProcessor{
 									BuilderType: "virtualbox-iso.ubuntu-1204",
 									ArtifactMetadataPublisher: &packer_registry.Bucket{
 										Slug: "variable-bucket-slug",
@@ -547,7 +548,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 				&packer.CoreBuild{
 					Type:     "virtualbox-iso.ubuntu-1204",
 					Prepared: true,
-					Builder: &packer.RegistryBuilder{
+					Builder: &registrywrapper.Builder{
 						Name:    "virtualbox-iso.ubuntu-1204",
 						Builder: emptyMockBuilder,
 						ArtifactMetadataPublisher: &packer_registry.Bucket{
@@ -563,7 +564,7 @@ func Test_ParseHCPPackerRegistryBlock(t *testing.T) {
 					PostProcessors: [][]packer.CoreBuildPostProcessor{
 						{
 							{
-								PostProcessor: &packer.RegistryPostProcessor{
+								PostProcessor: &registrywrapper.PostProcessor{
 									BuilderType: "virtualbox-iso.ubuntu-1204",
 									ArtifactMetadataPublisher: &packer_registry.Bucket{
 										Slug:         "bucket-slug",

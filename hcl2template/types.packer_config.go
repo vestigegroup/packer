@@ -14,6 +14,7 @@ import (
 	pkrfunction "github.com/hashicorp/packer/hcl2template/function"
 	packerregistry "github.com/hashicorp/packer/internal/registry"
 	"github.com/hashicorp/packer/packer"
+	registrywrapper "github.com/hashicorp/packer/packer/registry-wrapper"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
 )
@@ -546,7 +547,7 @@ func (cfg *PackerConfig) getCoreBuildPostProcessors(source SourceUseBlock, block
 			}
 
 			if cfg.bucket != nil {
-				postProcessor = &packer.RegistryPostProcessor{
+				postProcessor = &registrywrapper.PostProcessor{
 					ArtifactMetadataPublisher: cfg.bucket,
 					BuilderType:               source.String(),
 					PostProcessor:             postProcessor,
@@ -681,7 +682,7 @@ func (cfg *PackerConfig) GetBuilds(opts packer.GetBuildsOptions) ([]packersdk.Bu
 			if cfg.bucket != nil {
 				pps = append(pps, []packer.CoreBuildPostProcessor{
 					{
-						PostProcessor: &packer.RegistryPostProcessor{
+						PostProcessor: &registrywrapper.PostProcessor{
 							BuilderType:               srcUsage.String(),
 							ArtifactMetadataPublisher: cfg.bucket,
 						},
@@ -701,7 +702,7 @@ func (cfg *PackerConfig) GetBuilds(opts packer.GetBuildsOptions) ([]packersdk.Bu
 			}
 
 			if cfg.bucket != nil && cfg.bucket.Validate() == nil {
-				builder = &packer.RegistryBuilder{
+				builder = &registrywrapper.Builder{
 					Name:                      srcUsage.String(),
 					Builder:                   builder,
 					ArtifactMetadataPublisher: cfg.bucket,

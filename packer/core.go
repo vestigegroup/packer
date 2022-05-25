@@ -21,6 +21,7 @@ import (
 	"github.com/hashicorp/packer-plugin-sdk/template/interpolate"
 	packerregistry "github.com/hashicorp/packer/internal/registry"
 	"github.com/hashicorp/packer/internal/registry/env"
+	registrywrapper "github.com/hashicorp/packer/packer/registry-wrapper"
 	packerversion "github.com/hashicorp/packer/version"
 )
 
@@ -392,7 +393,7 @@ func (c *Core) Build(n string) (packersdk.Build, error) {
 			}
 
 			if c.bucket != nil {
-				postProcessor = &RegistryPostProcessor{
+				postProcessor = &registrywrapper.PostProcessor{
 					BuilderType:               n,
 					ArtifactMetadataPublisher: c.bucket,
 					PostProcessor:             postProcessor,
@@ -418,7 +419,7 @@ func (c *Core) Build(n string) (packersdk.Build, error) {
 	if c.bucket != nil {
 		postProcessors = append(postProcessors, []CoreBuildPostProcessor{
 			{
-				PostProcessor: &RegistryPostProcessor{
+				PostProcessor: &registrywrapper.PostProcessor{
 					BuilderType:               n,
 					ArtifactMetadataPublisher: c.bucket,
 				},
@@ -429,7 +430,7 @@ func (c *Core) Build(n string) (packersdk.Build, error) {
 	// TODO hooks one day
 
 	if c.bucket != nil {
-		builder = &RegistryBuilder{
+		builder = &registrywrapper.Builder{
 			Name:                      n,
 			ArtifactMetadataPublisher: c.bucket,
 			Builder:                   builder,
